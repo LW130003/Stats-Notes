@@ -36,3 +36,14 @@ A stochastic process is a collection or ensemble of random variables indexed by 
 
 A stochastic process means that one has a system for which there are observations at certain times, and that the outcome, that is, the observed value at each time is a random variable. 
 
+Anything completely random is not important. If there is no pattern in it its of no use.
+
+Even though the toss of a fair coin is random but there is a pattern that given sufficiently large number of trails you will get half of the times as heads. This is a useful pattern.
+
+The pollen in water will follow brownian motion. Even though it appears that motion of individual pollen is independent of its previous direction, overall there is pattern observed with that kind of motion.
+
+In rolling of two dice you may find at any given time the sum of outcome of two dice is random but if you take a series of events ( roll n number of times ) you may observe that 9 and 12 appear less times than 10 and 11. There is a pattern in them even though the individuals are random.
+
+These types of process ( series of events) are called stochastic processes. The individual events are random but there is inherently a pattern within them. That is important.
+
+
