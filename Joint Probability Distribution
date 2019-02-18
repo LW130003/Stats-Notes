@@ -1,0 +1,33 @@
+Joint Probability Definition
+
+A joint probability is a statistical measure that calculates the likelihood of two events occurring together and at the same point in time.
+
+Joint probability is the probability of event Y occuring at the same time event X occurs.
+
+--------------------
+
+What does Joint Probability Tell You?
+
+Probability is the field of statistics that deals with the likelihood of an event or phenomena occuring. It is quantified as [0, 1], where 0 indicates an impossible chance of occurrence and 1 denotes that certain outcome of an event.
+
+Joint probability is a measure of two events happening at the same time, and can only be applied to situations where more than one observation can occur at the smae time.
+
+The symbol “∩” in a joint probability is referred to as an intersection. The probability of event X and event Y happening is the same thing as the point where X and Y intersect. 
+
+Therefore, joint probability is also called the intersection of two or more events.
+
+---------------------------
+
+Joint Probability and Conditional Probability
+
+Conditional Proabbility is the probability that one event will happen given another action or event happens. 
+
+Joint probability only factors the likelihood of both event occuring.
+
+Conditional Probability can be used to calculate joint probability.
+
+P(X, Y) = P(X|Y)*P(Y) = P(Y|X)*P(X)
+
+Statisticians and analysts use joint probability as a tool when two or more observable events can occur simultaneously. 
+
+For instance, joint probability can be used to estimate the likelihood of a drop in the Dow Jones Industrial Average (DJIA) accompanied by a drop in Microsoft’s share price, or the chance that the value of oil rises at the same time the U.S. dollar weakens.
