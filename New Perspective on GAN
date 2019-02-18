@@ -1,0 +1,43 @@
+New Perspectives on Adversarial Training (NIPS 2016 Adversarial Training Workshop)
+https://www.inference.vc/my-summary-of-adversarial-training-nips-workshop/
+In one worldview: the divergence minimization view, we primarily care about training the generator and treat the discriminator as an auxiliary variable. In other view - the contrast function view - we focus on the discriminator and treat the generator as an auxiliary. Thse two views are complementary and allow us to think about the algorithm in different ways.
+
+# The Divergence Minimization View
+
+Many talks presented GANs as a way to minimise a divergence between the real data distribution p and an implicit generative model qθ in a way that only requires sampling from either distributions (and differentiability). In this view, the discriminator is an auxiliary object that helps us carry out this optimisation approximately, or helps us estimate crucial objects such as the likelihood ratio. The main people who helped develop this view are Ian Goodfellow, Sebastian Nowozin, Shakir Mohamed, Léon Bottou and their colleagues. And of course most of my blog posts have presented GANs in this light, too.
+
+Fundamental Challenges to Overcome
+- Minimizing Lower Bounds: One obvious criticism of the variational view is that GAN-type algorithms end up minimising lower bounds or otherwise approximations to divergences. Ideally, we like to minimise upper bounds, but none of the algorithms I know about do that. This means that when our objective function for the generator decreases, we don't really know why it decreased. Indeed, one can decrease the approximate objective and simultaneously increase the divergence we want to minimise and make the bound looser. This explains why we don't really have a good objective number we can track throughout training. The weaker the discriminator, the more this problem would occur, so this suggests the discriminator must be powerful and we must train it to perfection in each iteration.
+- Degenerate Distributions: Another criticism independently discussed by Arjovsky and Buttou (2016) and ourselves in (Sønderby et al, 2016) is that the generative distribution in GANs is typically degenerate, so none of the nice divergences we like to talk about are actually well defined. In practice, this prevents us from using a powerful discriminator and training it until convergence as the discriminator would end up being perfect each time. Both papers suggested instance noise as a way to overcome this problem, but I'd say the jury is still out whether this is a silver bullet or yet another hack that people can try.
+
+# The Contrast Function View
+
+In this second school of thought, spearheaded by Yann LeCun and colleagues, the primary object if interest is the discriminator, the generator is only an auxiliary tool. Yann presented a great talk at the workshop, and touched on this issue in his keynote, too. In his talk he unified unsupervised learning methods: our goal is always to learn a contrast function - or energy function - that takes low values on the data manifold, and high values everywhere else.
+
+From this perspective, the key difference between unsupervised learning methods (PCA, maximum likelihood, score matching, contrastive divergence, etc) is how ‘pushing up the manifold away from data’ is implemented. In a GAN algorithm, too, we train the discriminator by driving its value down around real data, and higher around fake data. In this view, the generator is just a smart way of generating contrastive points at which we want to push up the contrast function. In this sense, GANs can be thought of as an adaptive form of noise-contrastive learning, and this makes sense.
+
+## How does a GAN select those contrast points?
+
+In the GAN algorithm the generator tries to wiggle its samples into places where the contrast function has low values, therefore one can argue it adversarially selects the worst-case points on the contrast function surface which are quite low right now and therefore should be pushed up further. If the generator eventually reaches the real data manifold, it will try to push up the contrast function there, too, but it is counterbalanced by the effort of real datapoints which are trying to push it down. So in a way, this procedure makes sense intuitively.
+
+I asked a question after Yann's talk (which unfortunately sounded tongue-in-cheek to quote Yann, even though that was certainly not my intention - I apologise). I asked in what way the generator is an intelligent way to explore points at which the contrast function should be pushed up. Below I explain what I had in mind when I asked this question.
+
+## What happens if the generator is perfect?
+
+As the authors prove in (Zhao et al, 2016), the general energy-based GAN algorithm has a Nash equilibrium and when this equilibrium is reached, we know that the generator qθ matches the real data distribution p - subject to conditions such as representability, etc. This also means that once the the Nash equilibrium is reached, the discriminator’s training signals eventually cancel out on average, and it stops training.
+
+While the proof specifies the unique stable point the generator converges to (p) at the Nash equilibrium, it doesn't specify what the discriminator converges to in equilibrium, or whether the equilibrium limit of the discriminator is unique. Indeed, the idealised Nash equilibrium (assuming infinitely large batchsize) is reached by any discriminator that has precisely 0 gradients at the data manifold. A perfectly constant contrast function and a perfect generator qθ=p are in Nash equilibrium. Yet, a perfectly constant contrast function is almost certainly not very useful.
+
+Now this is the idealised case. In practice, minibatch SGD is used, so the gradients won't exactly cancel out and there will be some Monte Carlo noise. This noise may be pushing things around a bit more. Consider the data living on a linear subspace (unlikely assumption but still worth considering) and the generator is already perfect on this manifold. In this case, the discriminator/contrast function has little incentive to develop non-zero gradients orthogonal to the manifold. If we use some highly overparametrised model such as a neural network, the discriminator might develop non-zero gradients orthogonal to the manifold by chance. This might accidentally push the system out of its Nash equilibrium, which we should be happy about as this now sends the generator to explore the rest of the world, rather than sitting firmly on top of real data.
+
+## Is the generator incentivised to explore?
+
+A more general thought is that the generator is not incentivised to explore parts of the space where there is no real data. Imagine the boring case we're in a 2D space, and the real data lives on a line y1=0. If we initialise the generator to be on the left side of the data manifold, it will push up the manifold on that side, but once it has reached the data manifold, why would it go and explore the right-hand side of the manifold? Generally speaking the discriminator is prone to developing 'spurious modes', that is areas far away from real data where the contrast function value ends up low, as the generator never visited this region.
+
+At least we can say that the contrast function will end up lopsided, and the final value of it will depend on the initial conditions and the whole trajectory the generator took to get to the Nash equilibrium (assuming it is eventually reached). So perhaps, if we want to train a contrast function, and only need the generative model as an intelligent exploration mechanism, we might need a different objective for the generator, or frame the algorithm in an entirely different way.
+
+We basically want to avoid the Nash equilibrium as I think that's not a very productive mode of operation for the generator to train the contrast function. So perhaps an extra penalty for the generator being too good might be needed. Experience replay might be useful so the discriminator is regularised to not forget things the generator already visited. It may make sense to regularly reset the generator to something wide, bridging the gap between noise-contrastive learning and GANs. It may make sense to have multiple generators trying to find different modes.
+
+# Summary
+
+I really enjoyed the adversarial training workshop. There are different, complementary views on the algorithm, each suggesting different ways in which it could be improved or stabilised further. There was a real sense of people getting to grips with GANs and starting to understand how to stabilise, generalise and fix them.
