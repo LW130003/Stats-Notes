@@ -1,3 +1,5 @@
+https://stats.stackexchange.com/questions/2641/what-is-the-difference-between-likelihood-and-probability
+
 What is the difference between "likelihood" and "probability"?
 
 The answer depends on whether you are dealing with discrete or continous random variables. So, I will split my answer accordingly.
