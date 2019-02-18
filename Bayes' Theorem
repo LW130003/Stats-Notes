@@ -1,0 +1,45 @@
+prior proabibility - probability of an event before new data is collected. This is the best rational assessment of the probability of an outcome based on the current knowledge before an experiment is performed.
+
+posterior probability - is the revised probability of an event occuring after taking into consideration new information. Posterior probability is calculated by updating the prior probability using Bayes' theorem. In statistical terms, the posterior probability is the probability of event A occuring given that event B has occurred.
+
+Prior probability represents what is original believed before new evidence is introduced.
+
+Prior probability is the probability of an event before new data is collected. The best rational assessment of the probability of an outcome based on the current knowledge before an experiment is performed.
+
+Posterior probability takes this new information into account. Posterior distribution should be a better reflection of the underlying truth of a data generating process than the prior probability, since the posterior included more information.
+
+Posterior probability si the probability of event A occuring given that event B has occurred.
+
+A posterior probability can subsequently become the prior for a new updated posterior probability as new information arises and is incorporated into the analysis
+
+P(A|B) = P(B|A) P(A) / P(B)
+
+P(A) = probability of event A 
+P(B) = Probility of event B
+P(B|A) = Prior probility - probability of knowing B given A has occur
+P(A|B) = posterior probability - probability of knowing A given B has occur
+P(B|A) and P(A|B) is conditional probability
+
+It is the probability P(A) assigned to the event A before receiving the information that the event B has happened. After receiving this information, the prior probability updated and posterior probability is computed.
+
+Key Takeaways:
+- A posterior probability, in Bayesian statistics, is the revised or updated probability of an event occuring after taking into consideration new information.
+- Posterior probability is calculated by updating the prior probability using Bayes' theorem.
+- In statistical terms, the posterior probability is the probability of event A occuring given that event B has occurred.
+
+-------------------------------------------
+
+Bayes' Theorem
+- Name after Thomas Bayes
+- Mathematical formulat for determining conditional probability.
+- This theorem provides a way to revise existing predictions or theories (update probabilities) given new or additional evidence.
+- In finance, Bayes' theorem can be used to rate the risk of lending money to potential borrowers.
+- Bayes' theorem is the foundation of the field of Bayesian statistics.
+
+Fast Facts
+- Bayes' Theorem allows you to update predicted probabilities of an event by incorporating new information
+- Often employed in finance in updating risk evaluation
+- Name after Thomas Bayes
+- Also known as Bayes' Rule or Bayes' Law
+
+
